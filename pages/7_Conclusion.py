@@ -21,7 +21,7 @@ with st.echo(code_location="below"):
     def calculate_number_of_years(salary):
         saved = 0.2 * int(salary)
         average = main_data['list_price'].mean()
-        return average / salary
+        return average / saved
 
     a = calculate_number_of_years(salary)
 
