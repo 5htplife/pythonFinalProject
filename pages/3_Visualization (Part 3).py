@@ -20,47 +20,53 @@ with st.echo(code_location="below"):
     geodata1 = gpd.read_file("https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson")
 
 
-    def get_school_rating():
-        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/table.csv")
-    school_data = get_school_rating()
-    school_data.rename(columns={'Address': 'zip'}, inplace=True)
+    #def get_school_rating():
+    #    return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/table.csv")
+    #school_data = get_school_rating()
+    #school_data.rename(columns={'Address': 'zip'}, inplace=True)
 
 
-    def get_lat_lon_cities():
-        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/lat_lon_cities.csv")
+    #def get_lat_lon_cities():
+    #    return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/lat_lon_cities.csv")
 
 
-    lat_lon_cities = get_lat_lon_cities()
+    #lat_lon_cities = get_lat_lon_cities()
 
     # Find the closest city to the houses
     from haversine import haversine, Unit
 
-    coordinates_for_cities = {}
-    for element in lat_lon_cities.iterrows():
-        row = element[1]
-        coordinates_for_cities[row['city']] = (row['lat'], row['lon'])
+    #coordinates_for_cities = {}
+    #for element in lat_lon_cities.iterrows():
+    #    row = element[1]
+    #    coordinates_for_cities[row['city']] = (row['lat'], row['lon'])
 
-    big_cities = ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco']  # top-4 in population
-    coordinates_for_big_cities = {key: value for key, value in coordinates_for_cities.items() if key in big_cities}
-
-
-    def find_closest_city(location, dicttttt):
-        closest_city = ()
-        for city in dicttttt.keys():
-            distance = haversine(location, dicttttt[city])
-            if closest_city == ():
-                closest_city = distance
-            while distance < closest_city:
-                closest_city = distance
-        return closest_city
+    #big_cities = ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco']  # top-4 in population
+    #coordinates_for_big_cities = {key: value for key, value in coordinates_for_cities.items() if key in big_cities}
 
 
-    geo_school = gpd.GeoDataFrame(school_data,
-                                    geometry=gpd.points_from_xy(school_data['Longitude'], school_data['Latitude']))
+    #def find_closest_city(location, dicttttt):
+    #    closest_city = ()
+    #    for city in dicttttt.keys():
+    #        distance = haversine(location, dicttttt[city])
+    #        if closest_city == ():
+    #            closest_city = distance
+    #        while distance < closest_city:
+    #            closest_city = distance
+    #    return closest_city
 
-    geodata_for_school = geodata1[['geometry', 'zcta']]
 
-    geo_school_merged = geo_school.sjoin(geodata_for_school, op="intersects", how="inner").drop(columns=['index_right'])
+    #geo_school = gpd.GeoDataFrame(school_data,
+    #                                geometry=gpd.points_from_xy(school_data['Longitude'], school_data['Latitude']))
+
+    #geodata_for_school = geodata1[['geometry', 'zcta']]
+
+    #geo_school_merged = geo_school.sjoin(geodata_for_school, op="intersects", how="inner").drop(columns=['index_right'])
+
+    def get_geo_school_merged():
+        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/geo_school_merged.csv")
+
+    geo_school_merged = get_geo_school_merged()
+
 
     st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
 
