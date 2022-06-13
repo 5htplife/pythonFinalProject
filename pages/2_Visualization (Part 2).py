@@ -65,6 +65,8 @@ with st.echo(code_location="below"):
     def get_lat_lon_cities():
         return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/lat_lon_cities")
 
+    lat_lon_cities = get_lat_lon_cities()
+
     # Find the closest city to the houses
     from haversine import haversine, Unit
 
