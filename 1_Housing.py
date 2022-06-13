@@ -229,23 +229,23 @@ with st.echo(code_location="below"):
     st.write("This visualization shows average housing prices in certain neighbourhoods, as well as provides"
              "some information about this neighbourhood (population, median age, % of white, black, hispanic population).")
 
-    fig_mean = px.choropleth(final_geo_mean_data, locations='zcta', color='list_price',
-                             hover_data=['list_price', 'tot_pop', 'age_median', 'white', 'black_afam', 'hispanic_l'],
-                             geojson=geodata1, featureidkey='properties.zcta', projection="mercator",
-                             labels={'list_price': 'House price in the area', 'tot_pop': 'Population in the area',
-                                     'age_median': 'Median Age in the area',
-                                     'white': 'White population (%)',
-                                     'black_afam': 'Black American population (%)',
-                                     'hispanic_l': 'Hispanic American population (%)'},
-                             color_continuous_scale=[[0, 'rgb(253, 231, 37)'],
-                                                     [0.05, 'rgb(94, 201, 98)'],
-                                                     [0.1, 'rgb(33, 145, 140)'],
-                                                     [0.2, 'rgb(59, 82, 139)'],
-                                                     [1, 'rgb(68, 1, 84)']]
-                             )
-    fig_mean.update_geos(fitbounds="locations", visible=False)
-    fig_mean.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-    st.plotly_chart(fig_mean)
+    #fig_mean = px.choropleth(final_geo_mean_data, locations='zcta', color='list_price',
+                             #hover_data=['list_price', 'tot_pop', 'age_median', 'white', 'black_afam', 'hispanic_l'],
+                             #geojson=geodata1, featureidkey='properties.zcta', projection="mercator",
+                             #labels={'list_price': 'House price in the area', 'tot_pop': 'Population in the area',
+                                     #'age_median': 'Median Age in the area',
+                                     #'white': 'White population (%)',
+                                     #'black_afam': 'Black American population (%)',
+                                     #'hispanic_l': 'Hispanic American population (%)'},
+                             #color_continuous_scale=[[0, 'rgb(253, 231, 37)'],
+                                                     #[0.05, 'rgb(94, 201, 98)'],
+                                                     #[0.1, 'rgb(33, 145, 140)'],
+                                                     #[0.2, 'rgb(59, 82, 139)'],
+                                                     #[1, 'rgb(68, 1, 84)']]
+                             #)
+    #fig_mean.update_geos(fitbounds="locations", visible=False)
+    #fig_mean.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+    #st.plotly_chart(fig_mean)
 
     school_data = get_school_rating()
     school_data.rename(columns={'Address': 'zip'}, inplace=True)
