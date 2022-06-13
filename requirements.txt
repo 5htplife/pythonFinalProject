@@ -1,10 +1,10 @@
 beautifulsoup4==4.11.1
+conda==4.13.0
 Fiona==1.8.21
 folium==0.12.1.post1
 geonetworkx==0.5.3
 geopandas==0.10.2
 geopy==2.2.0
-geos==0.2.3
 haversine==2.5.1
 matplotlib==3.5.2
 networkx==2.8.3
