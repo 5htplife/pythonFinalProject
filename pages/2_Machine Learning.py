@@ -49,7 +49,7 @@ with st.echo(code_location="below"):
 
     @st.cache(allow_output_mutation=True)
     def get_lat_lon_cities():
-        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/lat_lon_cities")
+        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/lat_lon_cities.csv")
     lat_lon_cities = get_lat_lon_cities() #download modified on the first page dataframe
 
     coast = get_coastline()
