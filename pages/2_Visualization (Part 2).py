@@ -10,6 +10,7 @@ from folium.plugins import HeatMap
 from streamlit_folium import st_folium
 import seaborn as sns
 import fiona
+import requests
 import folium.plugins as plugins
 
 
@@ -30,7 +31,7 @@ with st.echo(code_location="below"):
 
     final_geo_mean_data = get_final_mean_data()
 
-    geodata1 = get_geodata()
+    geodata1 = gpd.read_file("https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson")
 
     #final_geo_mean_data['zcta'] = final_geo_mean_data['zcta'].astype('str')
 
