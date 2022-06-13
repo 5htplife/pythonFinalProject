@@ -63,7 +63,7 @@ with st.echo(code_location="below"):
     school_data.rename(columns={'Address': 'zip'}, inplace=True)
 
     def get_lat_lon_cities():
-        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/lat_lon_cities")
+        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/lat_lon_cities.csv")
 
     lat_lon_cities = get_lat_lon_cities()
 
