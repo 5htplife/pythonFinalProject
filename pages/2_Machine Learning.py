@@ -12,7 +12,6 @@ from folium.plugins import HeatMap
 from streamlit_folium import st_folium
 import seaborn as sns
 import fiona
-from shapely.geometry import shape, Point
 from statsmodels.tools.tools import add_constant
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from sklearn.model_selection import train_test_split
