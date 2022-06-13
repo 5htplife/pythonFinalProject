@@ -54,8 +54,6 @@ with st.echo(code_location="below"):
 
     st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
 
-    geo_school_merged
-
     geo_school_merged=geo_school_merged.dissolve(by="zcta", aggfunc='mean').reset_index(drop=True)
 
     geo_school_merged["Rating"]=geo_school_merged["Rating"].astype("float64")
