@@ -16,6 +16,8 @@ import folium.plugins as plugins
 
 with st.echo(code_location="below"):
 
+    st.write("### More Visualizations on Housing Prices")
+
     def get_final_mean_data():
         return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/data_for_ml")
 

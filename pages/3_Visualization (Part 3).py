@@ -6,7 +6,7 @@ import pandas as pd
 
 with st.echo(code_location="below"):
 
-
+    st.write("### School Rating Visualization")
     geodata1 = gpd.read_file("https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson")
 
 
@@ -53,6 +53,8 @@ with st.echo(code_location="below"):
     geo_school_merged = geodata_for_school.sjoin(geo_school, op="intersects", how="inner").drop(columns=['index_right'])
 
     st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
+    st.write("Originally I created it with folium, but streamlit can't run it. "
+             "Anyway, you can see it if you run the Jupyter Notebook file I attach.")
 
     geo_school_merged=geo_school_merged.dissolve(by="zcta", aggfunc='mean').reset_index(drop=True)
 
@@ -65,15 +67,11 @@ with st.echo(code_location="below"):
 
     fig=geo_school_merged.plot(column='Rating', ax=ax, legend=True)
     plt.title("School Ratings across Regions")
-    plt.xlabel("Latitude")
-    plt.ylabel("Longitude")
     plt.legend(title='School Rating')
 
     st.pyplot()
 
-
-
-
+    #Original code:
     #m1 = folium.Map([37.16611, -119.44944], zoom_start=6, tiles='openstreetmap')
     #folium.Choropleth(
         #geo_data=geodata1,
