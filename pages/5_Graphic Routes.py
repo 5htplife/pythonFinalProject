@@ -16,6 +16,7 @@ with st.echo(code_location="below"):
 
     st.write("### Where is Starbucks, Suzie?")
 
+    st.write("If you have a warning that the page doesn't respond wait for a little bit, please.")
     st.write("This map shows routes between elementary schools in Beverly Hills and the nearest Starbucks Coffeeshop to each of them.")
     st.write("I use a local html file created from running this code for you not to wait for a long time.")
     st.write("This map also shows every walking route in Beverly Hills.")
