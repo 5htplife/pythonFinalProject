@@ -29,9 +29,8 @@ from haversine import haversine, Unit
 from geopy.geocoders import (
     Nominatim,
 )
-import folium
 import folium.plugins as plugins
-import geopandas as gpd
+
 with st.echo(code_location="below"):
     def get_main_data():
         return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/house_prices_california2.csv")
@@ -247,58 +246,58 @@ with st.echo(code_location="below"):
     #fig_mean.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     #st.plotly_chart(fig_mean)
 
-    school_data = get_school_rating()
-    school_data.rename(columns={'Address': 'zip'}, inplace=True)
+    #school_data = get_school_rating()
+    #school_data.rename(columns={'Address': 'zip'}, inplace=True)
 
     # Find the closest city to the houses
-    from haversine import haversine, Unit
+    #from haversine import haversine, Unit
 
-    coordinates_for_cities = {}
-    for element in lat_lon_cities.iterrows():
-        row = element[1]
-        coordinates_for_cities[row['city']] = (row['lat'], row['lon'])
+    #coordinates_for_cities = {}
+    #for element in lat_lon_cities.iterrows():
+        #row = element[1]
+        #coordinates_for_cities[row['city']] = (row['lat'], row['lon'])
 
-    big_cities = ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco']  # top-4 in population
-    coordinates_for_big_cities = {key: value for key, value in coordinates_for_cities.items() if key in big_cities}
-
-
-
-    def find_closest_city(location, dicttttt):
-        closest_city = ()
-        for city in dicttttt.keys():
-            distance = haversine(location, dicttttt[city])
-            if closest_city == ():
-                closest_city = distance
-            while distance < closest_city:
-                closest_city = distance
-        return closest_city
+    #big_cities = ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco']  # top-4 in population
+    #coordinates_for_big_cities = {key: value for key, value in coordinates_for_cities.items() if key in big_cities}
 
 
-    geo_school = gpd.GeoDataFrame(school_data,
-                                  geometry=gpd.points_from_xy(school_data['Longitude'], school_data['Latitude']))
 
-    geodata_for_school = geodataa[['geometry', 'zcta']]
+    #def find_closest_city(location, dicttttt):
+        #closest_city = ()
+        #for city in dicttttt.keys():
+            #distance = haversine(location, dicttttt[city])
+            #if closest_city == ():
+                #closest_city = distance
+            #while distance < closest_city:
+                #closest_city = distance
+        #return closest_city
 
-    geo_school_merged = geo_school.sjoin(geodata_for_school, op="intersects", how="inner").drop(columns=['index_right'])
 
-    geodata2 = get_geodata()
+    #geo_school = gpd.GeoDataFrame(school_data,
+                                  #geometry=gpd.points_from_xy(school_data['Longitude'], school_data['Latitude']))
 
-    st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
+    #geodata_for_school = geodataa[['geometry', 'zcta']]
 
-    m1 = folium.Map([37.16611, -119.44944], zoom_start=6, tiles='openstreetmap')
-    folium.Choropleth(
-        geo_data=geodata2,
-        name="choropleth",
-        data=geo_school_merged,
-        columns=["zcta", "Rating"],
-        key_on='feature.properties.zcta',
-        fill_color="OrRd",
-        fill_opacity=0.7,
-        line_opacity=0.2,
-        legend_name="Elementary Schools in California",
-    ).add_to(m1)
+    #geo_school_merged = geo_school.sjoin(geodata_for_school, op="intersects", how="inner").drop(columns=['index_right'])
 
-    map1 = st_folium(m1, key="fig2", width=700, height=700)
+    #geodata2 = get_geodata()
+
+    #st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
+
+    #m1 = folium.Map([37.16611, -119.44944], zoom_start=6, tiles='openstreetmap')
+    #folium.Choropleth(
+        #geo_data=geodata2,
+        #name="choropleth",
+        #data=geo_school_merged,
+        #columns=["zcta", "Rating"],
+        #key_on='feature.properties.zcta',
+        #fill_color="OrRd",
+        #fill_opacity=0.7,
+        #line_opacity=0.2,
+        #legend_name="Elementary Schools in California",
+    #).add_to(m1)
+
+    #map1 = st_folium(m1, key="fig2", width=700, height=700)
 
 
 

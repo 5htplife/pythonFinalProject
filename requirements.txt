@@ -1,5 +1,4 @@
 beautifulsoup4==4.11.1
-conda==4.3.13
 Fiona==1.8.21
 folium==0.12.1.post1
 geonetworkx==0.5.3
