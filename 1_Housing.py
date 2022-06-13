@@ -216,15 +216,15 @@ with st.echo(code_location="below"):
         m), axis=1)
     map = st_folium(m, key="fig1", width=700, height=700)
 
-    final_geo_mean_data = geo_mean_main_data_ma.sjoin(geodataa, op="intersects", how="inner").drop(
-        columns=['zip', 'index_right'])
+    #final_geo_mean_data = geo_mean_main_data_ma.sjoin(geodataa, op="intersects", how="inner").drop(
+        #columns=['zip', 'index_right'])
 
-    final_geo_mean_data['white'] = (final_geo_mean_data['white'] / final_geo_mean_data['tot_pop'])
-    final_geo_mean_data['black_afam'] = (final_geo_mean_data['black_afam'] / final_geo_mean_data['tot_pop'])
-    final_geo_mean_data['hispanic_l'] = (final_geo_mean_data['hispanic_l'] / final_geo_mean_data['tot_pop'])
-    final_geo_mean_data = final_geo_mean_data.round(2)  #then I also save it as csv for Telegram-Bot
+    #final_geo_mean_data['white'] = (final_geo_mean_data['white'] / final_geo_mean_data['tot_pop'])
+    #final_geo_mean_data['black_afam'] = (final_geo_mean_data['black_afam'] / final_geo_mean_data['tot_pop'])
+    #final_geo_mean_data['hispanic_l'] = (final_geo_mean_data['hispanic_l'] / final_geo_mean_data['tot_pop'])
+    #final_geo_mean_data = final_geo_mean_data.round(2)  #then I also save it as csv for Telegram-Bot
 
-    final_geo_mean_data['zcta'] = final_geo_mean_data['zcta'].astype('str')
+    #final_geo_mean_data['zcta'] = final_geo_mean_data['zcta'].astype('str')
 
     st.write("This visualization shows average housing prices in certain neighbourhoods, as well as provides"
              "some information about this neighbourhood (population, median age, % of white, black, hispanic population).")
