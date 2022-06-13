@@ -177,8 +177,8 @@ with st.echo(code_location="below"):
     geo_mean_main_data_ma = gpd.GeoDataFrame(mean_main_data_ma, geometry=gpd.points_from_xy(mean_main_data_ma["lon"],
                                                                                             mean_main_data_ma['lat']))
 
-    geodata = get_geodata()
-    geodataa = gpd.GeoDataFrame.from_features(geodata["features"])
+    geodata1 = get_geodata()
+    geodataa = gpd.GeoDataFrame.from_features(geodata1["features"])
 
     geo_main_data = gpd.GeoDataFrame(main_data, geometry=gpd.points_from_xy(main_data["lon"], main_data['lat']))
 
@@ -227,7 +227,7 @@ with st.echo(code_location="below"):
 
     fig_mean = px.choropleth(final_geo_mean_data, locations='zcta', color='list_price',
                              hover_data=['list_price', 'tot_pop', 'age_median', 'white', 'black_afam', 'hispanic_l'],
-                             geojson=geodata, featureidkey='properties.zcta', projection="mercator",
+                             geojson=geodata1, featureidkey='properties.zcta', projection="mercator",
                              labels={'list_price': 'House price in the area', 'tot_pop': 'Population in the area',
                                      'age_median': 'Median Age in the area',
                                      'white': 'White population (%)',
@@ -277,13 +277,13 @@ with st.echo(code_location="below"):
 
     geo_school_merged = geo_school.sjoin(geodata_for_school, op="intersects", how="inner").drop(columns=['index_right'])
 
-    geodata1 = get_geodata()
+    geodata2 = get_geodata()
 
     st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
 
     m1 = folium.Map([37.16611, -119.44944], zoom_start=6, tiles='openstreetmap')
     folium.Choropleth(
-        geo_data=geodata1,
+        geo_data=geodata2,
         name="choropleth",
         data=geo_school_merged,
         columns=["zcta", "Rating"],
