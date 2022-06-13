@@ -157,7 +157,7 @@ with st.echo(code_location="below"):
              " pandas for data preprocessing; API (not trivial, harder than in home assignments) for data retrieving; "
              "BeautifulSoup (twice) and scrapy for web-scraping; visualization libraries (plotly.express, folium, seaborn, matplotlib);"
              " SQL and regex for creating a Telegram-Bot; geopandas, folium and shapely maaany times for almost everything; NetworkX and OSMnx"
-             "for creating routes; numpy and scipy for creating routes and machine learning; XGBoost, RainForest and LinearRegression for machine learning.")
+             "for creating routes; numpy and scipy for creating routes and machine learning; XGBoost, RainForest and LinearRegression for machine learning. As for number of lines, definetely more than 120.")
 
     st.write("## Visualization")
 
@@ -225,9 +225,7 @@ with st.echo(code_location="below"):
 
     #final_geo_mean_data['zcta'] = final_geo_mean_data['zcta'].astype('str')
 
-    st.write("This visualization shows average housing prices in certain neighbourhoods, as well as provides"
-             "some information about this neighbourhood (population, median age, % of white, black, hispanic population).")
-
+#VISUALIZATION NOT RUN BY STREAMLIT
     #fig_mean = px.choropleth(final_geo_mean_data, locations='zcta', color='list_price',
                              #hover_data=['list_price', 'tot_pop', 'age_median', 'white', 'black_afam', 'hispanic_l'],
                              #geojson=geodata1, featureidkey='properties.zcta', projection="mercator",
@@ -246,58 +244,8 @@ with st.echo(code_location="below"):
     #fig_mean.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     #st.plotly_chart(fig_mean)
 
-    #school_data = get_school_rating()
-    #school_data.rename(columns={'Address': 'zip'}, inplace=True)
-
-    # Find the closest city to the houses
-    #from haversine import haversine, Unit
-
-    #coordinates_for_cities = {}
-    #for element in lat_lon_cities.iterrows():
-        #row = element[1]
-        #coordinates_for_cities[row['city']] = (row['lat'], row['lon'])
-
-    #big_cities = ['Los Angeles', 'San Diego', 'San Jose', 'San Francisco']  # top-4 in population
-    #coordinates_for_big_cities = {key: value for key, value in coordinates_for_cities.items() if key in big_cities}
 
 
-
-    #def find_closest_city(location, dicttttt):
-        #closest_city = ()
-        #for city in dicttttt.keys():
-            #distance = haversine(location, dicttttt[city])
-            #if closest_city == ():
-                #closest_city = distance
-            #while distance < closest_city:
-                #closest_city = distance
-        #return closest_city
-
-
-    #geo_school = gpd.GeoDataFrame(school_data,
-                                  #geometry=gpd.points_from_xy(school_data['Longitude'], school_data['Latitude']))
-
-    #geodata_for_school = geodataa[['geometry', 'zcta']]
-
-    #geo_school_merged = geo_school.sjoin(geodata_for_school, op="intersects", how="inner").drop(columns=['index_right'])
-
-    #geodata2 = get_geodata()
-
-    #st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
-
-    #m1 = folium.Map([37.16611, -119.44944], zoom_start=6, tiles='openstreetmap')
-    #folium.Choropleth(
-        #geo_data=geodata2,
-        #name="choropleth",
-        #data=geo_school_merged,
-        #columns=["zcta", "Rating"],
-        #key_on='feature.properties.zcta',
-        #fill_color="OrRd",
-        #fill_opacity=0.7,
-        #line_opacity=0.2,
-        #legend_name="Elementary Schools in California",
-    #).add_to(m1)
-
-    #map1 = st_folium(m1, key="fig2", width=700, height=700)
 
 
 

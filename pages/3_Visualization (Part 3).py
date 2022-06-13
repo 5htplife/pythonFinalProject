@@ -54,7 +54,7 @@ with st.echo(code_location="below"):
 
     st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
     st.write("Originally I created it with folium, but streamlit can't run it. That's why I recreated it with matplotlib"
-             "Anyway, you can see it if you run the Jupyter Notebook file I attach.")
+             "Anyway, you can see the original code below the first page (Housing).")
 
     geo_school_merged=geo_school_merged.dissolve(by="zcta", aggfunc='mean').reset_index(drop=True)
 
