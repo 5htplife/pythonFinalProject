@@ -68,6 +68,8 @@ with st.echo(code_location="below"):
     fig=geo_school_merged.plot(column='Rating', ax=ax, legend=True)
     plt.title("School Ratings across Regions")
     plt.legend(title='School Rating')
+    plt.xlabel(title='Longitude')
+    plt.ylabel(title='Latitude')
 
     st.pyplot()
 
