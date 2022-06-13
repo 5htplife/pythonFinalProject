@@ -31,7 +31,7 @@ from geopy.geocoders import (
 )
 import folium
 import folium.plugins as plugins
-import geopandas as gpd
+import streamlit.components.v1 as components
 
 with st.echo(code_location="below"):
     st.write("## Machine Learning")
@@ -225,82 +225,89 @@ with st.echo(code_location="below"):
     st.write('MSE is {:.2f}'.format(mse))
     st.write('R-squared is {:.2f}'.format(r2))
 
-    st.write("## 2. XGBoost")
+    st.write("## 2. XGBoost and RainForest")
 
     st.write("I run a linear regression with xgboost.")
 
-    x = final_data_var_norm
-    y = final_data1[["list_price"]]
-    x_train, x_test, y_train, y_test = train_test_split(
-        x, y, test_size=0.8, random_state=42)
-    x_trainn = x_train.to_numpy()
-    y_trainn = y_train.to_numpy()
-    x_testt = x_test.to_numpy()
-    y_testt = y_test.to_numpy()
+    st.write("It takes a lot of time, so I attach a Jupyter Notebook file where I did the rest (with RainForest as well).")
 
-    grid_params = [{"max_depth": [6, 7, 8, 9],
-                    "learning_rate": [0.01, 0.05, 0.1, 0.3],
-                    "n_estimators": [10, 30, 100]}]
+    HtmlFile1 = open('Final Project main-Copy1.html', 'r', encoding='utf-8')
 
-    xgbreg = GridSearchCV(xgb.XGBRegressor(), grid_params, scoring="r2")
-    xgbreg.fit(x_trainn, y_trainn)
-
-    xgbreg.best_params_
-
-    xgbr = xgb.XGBRegressor(n_estimators=100, max_depth=6, learning_rate=0.05, objective='reg:squarederror')
-    xgbbb = xgbreg.fit(x_trainn, y_trainn)
-    y_pred = xgbbb.predict(x_testt)
-    sortim = y_pred.argsort(axis=0)
-    y_predd = y_pred[sortim]
-    y_testt = y_testt[sortim]
-    fig3, ax3 = plt.subplots()
-    ax3.plot(np.arange(len(y_predd)), y_testt, "ro", markersize=2, label="actual price")
-    ax3.plot(np.arange(len(y_predd)), y_predd, "o", markersize=2, label="predicted price")
-    ax3.set_ylim([-1e1, 1e7])
-    plt.legend()
-    st.pyplot(fig3)
-
-    mse = mean_squared_error(y_testt, y_predd)
-    r2 = r2_score(y_testt, y_predd)
-    st.write('MSE is {:.2f}'.format(mse))
-    st.write('R-squared is {:.2f}'.format(r2))
+    components.html(HtmlFile1.read(), height=500, width=1000, scrolling=True)
+    #x = final_data_var_norm
+    #y = final_data1[["list_price"]]
+    #x_train, x_test, y_train, y_test = train_test_split(
+    #    x, y, test_size=0.8, random_state=42)
+    #x_trainn = x_train.to_numpy()
+    #y_trainn = y_train.to_numpy()
+    #x_testt = x_test.to_numpy()
+    #y_testt = y_test.to_numpy()
 
 
-    x = final_data_var_norm
-    y = final_data[["list_price"]]
-    x_train, x_test, y_train, y_test = train_test_split(
-        x, y, test_size=0.8, random_state=42)
-    x_trainn = x_train.to_numpy()
-    y_trainn = y_train.to_numpy()
-    x_testt = x_test.to_numpy()
-    y_testt = y_test.to_numpy()
 
-    grid_params = [{"n_estimators": [10, 50, 100],
-                    "max_depth": [6, 7, 8, 10],
-                    "min_samples_leaf": [1, 2, 5]}
-                   ]
+    #grid_params = [{"max_depth": [6, 7, 8, 9],
+    #                "learning_rate": [0.01, 0.05, 0.1, 0.3],
+    #                "n_estimators": [10, 30, 100]}]
 
-    clf = GridSearchCV(RandomForestRegressor(), grid_params)
-    clf.fit(x_trainn, y_trainn.ravel())
+    #xgbreg = GridSearchCV(xgb.XGBRegressor(), grid_params, scoring="r2")
+    #xgbreg.fit(x_trainn, y_trainn)
 
-    clf.best_params_
+    #xgbreg.best_params_
 
-    random_less = RandomForestRegressor(n_estimators=100, max_depth=10, min_samples_leaf=2)
+    #xgbr = xgb.XGBRegressor(n_estimators=100, max_depth=6, learning_rate=0.05, objective='reg:squarederror')
+    #xgbbb = xgbreg.fit(x_trainn, y_trainn)
+    #y_pred = xgbbb.predict(x_testt)
+    #sortim = y_pred.argsort(axis=0)
+    #y_predd = y_pred[sortim]
+    #y_testt = y_testt[sortim]
+    #fig3, ax3 = plt.subplots()
+    #ax3.plot(np.arange(len(y_predd)), y_testt, "ro", markersize=2, label="actual price")
+    #ax3.plot(np.arange(len(y_predd)), y_predd, "o", markersize=2, label="predicted price")
+    #ax3.set_ylim([-1e1, 1e7])
+    #plt.legend()
+    #st.pyplot(fig3)
 
-    les = random_less.fit(x_trainn, y_trainn.ravel())
-    y_pred = les.predict(x_testt)
-    sortim = y_pred.argsort(axis=0)
-    y_predd = y_pred[sortim]
-    y_testt = y_testt[sortim]
-    fig4, ax4 = plt.subplots()
-    ax4.plot(np.arange(len(y_predd)), y_testt, "ro", markersize=2, label="actual price")
-    ax4.plot(np.arange(len(y_predd)), y_predd, "o", markersize=2, label="predicted price")
-    ax4.set_ylim([-1e1, 1e7])
-    plt.legend()
-    st.pyplot(fig4)
-    mse = mean_squared_error(y_testt, y_predd)
-    r2 = r2_score(y_testt, y_predd)
-    st.write('MSE is {:.2f}'.format(mse))
-    st.write('R-squared is {:.2f}'.format(r2))
+    #mse = mean_squared_error(y_testt, y_predd)
+    #r2 = r2_score(y_testt, y_predd)
+    #st.write('MSE is {:.2f}'.format(mse))
+    #st.write('R-squared is {:.2f}'.format(r2))
 
 
+    #x = final_data_var_norm
+    #y = final_data[["list_price"]]
+    #x_train, x_test, y_train, y_test = train_test_split(
+    #    x, y, test_size=0.8, random_state=42)
+    #x_trainn = x_train.to_numpy()
+    #y_trainn = y_train.to_numpy()
+    #x_testt = x_test.to_numpy()
+    #y_testt = y_test.to_numpy()
+
+    #grid_params = [{"n_estimators": [10, 50, 100],
+    #                "max_depth": [6, 7, 8, 10],
+    #                "min_samples_leaf": [1, 2, 5]}
+    #               ]
+
+    #clf = GridSearchCV(RandomForestRegressor(), grid_params)
+    #clf.fit(x_trainn, y_trainn.ravel())
+
+    #clf.best_params_
+
+    #random_less = RandomForestRegressor(n_estimators=100, max_depth=10, min_samples_leaf=2)
+
+    #les = random_less.fit(x_trainn, y_trainn.ravel())
+    #y_pred = les.predict(x_testt)
+    #sortim = y_pred.argsort(axis=0)
+    #y_predd = y_pred[sortim]
+    #y_testt = y_testt[sortim]
+    #fig4, ax4 = plt.subplots()
+    #ax4.plot(np.arange(len(y_predd)), y_testt, "ro", markersize=2, label="actual price")
+    #ax4.plot(np.arange(len(y_predd)), y_predd, "o", markersize=2, label="predicted price")
+    #ax4.set_ylim([-1e1, 1e7])
+    #plt.legend()
+    #st.pyplot(fig4)
+    #mse = mean_squared_error(y_testt, y_predd)
+    #r2 = r2_score(y_testt, y_predd)
+    #st.write('MSE is {:.2f}'.format(mse))
+    #st.write('R-squared is {:.2f}'.format(r2))
+
+    st.write("As you might notice both XGBoost and RainForest significantly outperform Linear Regression.")
