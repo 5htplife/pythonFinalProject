@@ -25,12 +25,14 @@ with st.echo(code_location="below"):
 
     a = calculate_number_of_years(salary)
 
+    st.write("This is the number of years to be able to afford the house in California.")
+
     if salary:
         a
         if a > 10:
             st.write("Wow, that's a lot!")
         else:
-            st.write("Not to long, though.")
+            st.write("Not too long, though.")
 
     st.write("At least, you get this:")
 
