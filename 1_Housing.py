@@ -112,7 +112,6 @@ with st.echo(code_location="below"):
 
 
     #download edited geojson from GitHub
-    @st.cache(allow_output_mutation=True)
     def get_geodata():
         url="https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson"
         r = requests.get(url)
