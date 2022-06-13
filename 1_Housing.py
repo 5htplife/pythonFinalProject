@@ -33,7 +33,6 @@ import folium
 import folium.plugins as plugins
 import geopandas as gpd
 with st.echo(code_location="below"):
-    @st.cache(allow_output_mutation=True)
     def get_main_data():
         return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/house_prices_california2.csv")
 
