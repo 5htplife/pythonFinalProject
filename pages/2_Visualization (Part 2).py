@@ -15,16 +15,6 @@ import folium.plugins as plugins
 
 
 with st.echo(code_location="below"):
-    @st.cache()
-    def ask():
-        url = "https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson"
-        return requests.get(url)
-
-
-    def get_geodata():
-        r = ask()
-        geodata = json.loads(r.text)
-        return geodata
 
     def get_final_mean_data():
         return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/data_for_ml")

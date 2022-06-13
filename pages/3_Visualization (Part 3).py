@@ -16,9 +16,16 @@ import folium.plugins as plugins
 
 with st.echo(code_location="below"):
 
+    @st.cache()
+    def ask():
+        url = "https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson"
+        return requests.get(url)
 
-    geodata1 = gpd.read_file("https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson")
 
+    def get_geodata():
+        r = ask()
+        geodata = json.loads(r.text)
+        return geodata
 
     #def get_school_rating():
     #    return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/table.csv")
@@ -66,7 +73,7 @@ with st.echo(code_location="below"):
         return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/geo_school_merged.csv")
 
     geo_school_merged = get_geo_school_merged()
-
+    geodata1 = get_geodata()
 
     st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
 
