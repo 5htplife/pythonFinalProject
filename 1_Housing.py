@@ -30,6 +30,7 @@ from geopy.geocoders import (
     Nominatim,
 )
 import folium.plugins as plugins
+import streamlit.components.v1 as components
 
 with st.echo(code_location="below"):
     def get_main_data():
@@ -105,21 +106,21 @@ with st.echo(code_location="below"):
 
     st.write("The scraped csv file is uploaded on GitHub as well.")
 
-    @st.cache(allow_output_mutation=True)
-    def get_school_rating():
-        return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/table.csv")
+    #@st.cache(allow_output_mutation=True)
+    #def get_school_rating():
+    #    return pd.read_csv("https://github.com/5htplife/FinalProject/raw/main/table.csv")
 
 
     #download edited geojson from GitHub
-    @st.cache()
-    def ask():
-        url = "https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson"
-        return requests.get(url)
+    #@st.cache()
+    #def ask():
+    #    url = "https://github.com/5htplife/pythonFinalProject/raw/master/zipcodes.geojson"
+    #    return requests.get(url)
 
-    def get_geodata():
-        r = ask()
-        geodata = json.loads(r.text)
-        return geodata
+    #def get_geodata():
+    #    r = ask()
+    #    geodata = json.loads(r.text)
+   #     return geodata
 
 
 
@@ -161,59 +162,70 @@ with st.echo(code_location="below"):
 
     st.write("## Visualization")
 
-    df = get_main_data()
-    main_data = df[['baths', 'beds', 'city', 'lat', 'lon', 'list_price', 'sqft', 'type', 'postal_code', 'year_built']]
+    #df = get_main_data()
+    #main_data = df[['baths', 'beds', 'city', 'lat', 'lon', 'list_price', 'sqft', 'type', 'postal_code', 'year_built']]
 
-    for column in main_data:
-        if main_data[column].isnull().values.any() == True:
-            print(column)
+    #for column in main_data:
+    #    if main_data[column].isnull().values.any() == True:
+    #        print(column)
 
-    main_data_adj = main_data.dropna()
+    #main_data_adj = main_data.dropna()
 
-    mean_main_data = main_data_adj.groupby('postal_code', as_index=False)['list_price'].mean()
-    mean_main_data = mean_main_data.astype(int)
+    #mean_main_data = main_data_adj.groupby('postal_code', as_index=False)['list_price'].mean()
+    #mean_main_data = mean_main_data.astype(int)
 
-    mean_main_data_merged = mean_main_data.merge(lat_lon_cities, how='left', left_on='postal_code',
-                                                 right_on='zip').drop(columns=['type', 'Unnamed: 0']).drop_duplicates()
+    #mean_main_data_merged = mean_main_data.merge(lat_lon_cities, how='left', left_on='postal_code',
+    #                                             right_on='zip').drop(columns=['type', 'Unnamed: 0']).drop_duplicates()
 
-    mean_main_data_ma = mean_main_data_merged.dropna(subset=['lat', 'lon'])
-    geo_mean_main_data_ma = gpd.GeoDataFrame(mean_main_data_ma, geometry=gpd.points_from_xy(mean_main_data_ma["lon"],
-                                                                                            mean_main_data_ma['lat']))
+    #mean_main_data_ma = mean_main_data_merged.dropna(subset=['lat', 'lon'])
+    #geo_mean_main_data_ma = gpd.GeoDataFrame(mean_main_data_ma, geometry=gpd.points_from_xy(mean_main_data_ma["lon"],
+    #                                                                                        mean_main_data_ma['lat']))
 
-    geodata1 = get_geodata()
-    geodataa = gpd.GeoDataFrame.from_features(geodata1["features"])
+    #geodata1 = get_geodata()
+    #geodataa = gpd.GeoDataFrame.from_features(geodata1["features"])
 
-    geo_main_data = gpd.GeoDataFrame(main_data, geometry=gpd.points_from_xy(main_data["lon"], main_data['lat']))
+    #geo_main_data = gpd.GeoDataFrame(main_data, geometry=gpd.points_from_xy(main_data["lon"], main_data['lat']))
 
-    final_geo_data = geo_main_data.sjoin(geodataa, op="intersects", how="inner")
+    #final_geo_data = geo_main_data.sjoin(geodataa, op="intersects", how="inner")
 
     st.write("### Let's look at the housing prices.")
+
     st.write(" Black points on the map are particular houses.")
+
     st.write("I also marked 4 biggest cities in California (Los Angeles, San Francisco, San Diego, San Jose.")
 
-    m = folium.Map([37.16611, -119.44944], zoom_start=6)
-    lat = final_geo_data.lat.tolist()
-    lon = final_geo_data.lon.tolist()
-    folium.Marker(
-        location=[34.040587, -118.255403],
-        popup="Los Angeles").add_to(m)
 
-    folium.Marker(
-        location=[32.567022, -117.00425],
-        popup="San Diego").add_to(m)
+    st.write("Below, you can see the code but Streamlit is toow weak for my geojson so I attach the Jupyter Notebook file for visualization.")
 
-    folium.Marker(
-        location=[37.768106, -122.386927],
-        popup="San Francisco").add_to(m)
+    filepath = "Vizualization.html"
+    HtmlFile = open(filepath, 'r', encoding='utf-8')
 
-    folium.Marker(
-        location=[37.335987, -121.777603],
-        popup="San Jose").add_to(m)
-    HeatMap(list(zip(lat, lon))).add_to(m)
-    final_geo_data.apply(lambda x: folium.Circle(location=[x['lat'], x['lon']],
-                                                 radius=100, fill=True, color=x['type'], popup=x['list_price']).add_to(
-        m), axis=1)
-    map = st_folium(m, key="fig1", width=700, height=700)
+    components.html(HtmlFile.read(), height=700, width=700)
+
+    st.write("The second visualization provides information about elementary schools in California. On the 3rd page of visualization I have remade the map with matplotlib, but here is the original one.")
+    #m = folium.Map([37.16611, -119.44944], zoom_start=6)
+    #lat = final_geo_data.lat.tolist()
+    #lon = final_geo_data.lon.tolist()
+    #folium.Marker(
+    #    location=[34.040587, -118.255403],
+    #    popup="Los Angeles").add_to(m)
+
+    #folium.Marker(
+    #    location=[32.567022, -117.00425],
+    #    popup="San Diego").add_to(m)
+
+    #folium.Marker(
+    #    location=[37.768106, -122.386927],
+    #    popup="San Francisco").add_to(m)
+
+    #folium.Marker(
+    #    location=[37.335987, -121.777603],
+    #    popup="San Jose").add_to(m)
+    #HeatMap(list(zip(lat, lon))).add_to(m)
+    #final_geo_data.apply(lambda x: folium.Circle(location=[x['lat'], x['lon']],
+    #                                             radius=100, fill=True, color=x['type'], popup=x['list_price']).add_to(
+    #    m), axis=1)
+    #map = st_folium(m, key="fig1", width=700, height=700)
 
     #final_geo_mean_data = geo_mean_main_data_ma.sjoin(geodataa, op="intersects", how="inner").drop(
         #columns=['zip', 'index_right'])
