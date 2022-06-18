@@ -197,8 +197,8 @@ with st.echo(code_location="below"):
 
     st.write("Below, you can see the code but Streamlit is toow weak for my geojson so I attach the Jupyter Notebook file for visualization.")
 
-    filepathn = "Vizualization.html"
-    HtmlFile = open(filepathn, 'r', encoding='utf-8')
+    filepathone = "Visualization.html"
+    HtmlFile = open(filepathone, 'r', encoding='utf-8')
 
     components.html(HtmlFile.read(), height=700, width=700)
 
