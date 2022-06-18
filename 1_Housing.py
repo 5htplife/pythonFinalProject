@@ -202,7 +202,7 @@ with st.echo(code_location="below"):
 
     components.html(HtmlFile.read(), height=700, width=700)
 
-    st.write("The second visualization provides information about elementary schools in California. On the 3rd page of visualization I have remade the map with matplotlib, but here is the original one.")
+
     #m = folium.Map([37.16611, -119.44944], zoom_start=6)
     #lat = final_geo_data.lat.tolist()
     #lon = final_geo_data.lon.tolist()

@@ -53,7 +53,7 @@ with st.echo(code_location="below"):
     geo_school_merged = geodata_for_school.sjoin(geo_school, op="intersects", how="inner").drop(columns=['index_right'])
 
     st.write("The last map provides information about elementary school rankings in California neighbourhoods.")
-
+    st.write("Originally I created it with folium as well, but Streamlit can't handle it.")
 
     geo_school_merged=geo_school_merged.dissolve(by="zcta", aggfunc='mean').reset_index(drop=True)
 
